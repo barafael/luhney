@@ -17,7 +17,7 @@ pub fn luhn(cc_number: &str) -> bool {
     let mut acc = 0;
     let mut chunks = cc_number.chars().rev().array_chunks::<2>(); // TODO try using `chunks.by_ref()`
 
-    while let Some([a, b]) = chunks.next() {
+    for [a, b] in chunks.by_ref() {
         let (Some(a), Some(b)) = (a.to_digit(10), b.to_digit(10)) else {
             return false;
         };
