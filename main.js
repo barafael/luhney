@@ -2,15 +2,17 @@ import init, { luhn, help_text } from "./pkg/luhney.js";
 
 let messages, btn, input;
 
-function sendMessage() {
-  let cc = input.value;
+let history = [];
+let yrotsih = [];
+
+function sendMessage(msg) {
   input.value = "";
-  addMessage("query", cc, "item-secondary");
-  if (cc.startsWith("help")) {
-    addMessage("replify", help_text(), "item-primary");
+  addMessage("query", msg, "item-secondary");
+  if (msg.startsWith("help")) {
+    addMessage("luhney", help_text(), "item-primary");
   } else {
-    let result = luhn(cc);
-    addMessage("replify", result, "item-primary");
+    let result = luhn(msg);
+    addMessage("luhney", result, "item-primary");
   }
 }
 
@@ -24,6 +26,25 @@ function addMessage(from, msg, klass) {
   messages.scrollTop = messages.scrollHeight;
 }
 
+function handleHistory(event) {
+  input = document.getElementById("input");
+  if (event.key == "ArrowUp") {
+    let elem = history.pop();
+    if (elem != undefined) {
+      yrotsih.push(elem);
+      input.value = elem;
+    }
+  } else if (event.key == "ArrowDown") {
+    let elem = yrotsih.pop();
+    if (elem != undefined) {
+      history.push(elem);
+      input.value = elem;
+    } else {
+      input.value = "";
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   messages = document.querySelector(".message-list");
   btn = document.getElementById("btn");
@@ -32,12 +53,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   init().then(() => {
     btn.addEventListener("click", () => {
-      sendMessage();
+      let msg = input.value;
+      sendMessage(msg);
+      history.push(msg)
       input.focus();
     });
     window.addEventListener("keyup", function (e) {
-      if (e.key == "Enter") sendMessage();
+      if (e.key == "Enter") {
+        let msg = input.value;
+        sendMessage(msg)
+        history.push(msg);
+      }
     });
-    addMessage("replify", help_text(), "item-primary");
+    document.onkeydown = handleHistory;
+    addMessage("luhney", help_text(), "item-primary");
   });
 });
