@@ -1,0 +1,21 @@
+{
+  "name": "replify-example",
+  "collaborators": [
+    "Rafael Bachmann <rafael.bachmann.93@gmail.com>"
+  ],
+  "description": "Got a Rust program that gets some input, transforms it, then gives something back? Turn it into a REPL-like website via WASM.",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/barafael/replify-wasm"
+  },
+  "files": [
+    "replify_example_bg.wasm",
+    "replify_example.js",
+    "replify_example.d.ts"
+  ],
+  "module": "replify_example.js",
+  "types": "replify_example.d.ts",
+  "sideEffects": false
+}
