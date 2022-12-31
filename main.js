@@ -1,15 +1,15 @@
-import init, { process_str, help_text } from "./pkg/replify_example.js";
+import init, { luhn, help_text } from "./pkg/luhney.js";
 
 let messages, btn, input;
 
 function sendMessage() {
-  let msg = input.value;
+  let cc = input.value;
   input.value = "";
-  addMessage("query", msg, "item-secondary");
-  if (msg.startsWith("help")) {
+  addMessage("query", cc, "item-secondary");
+  if (cc.startsWith("help")) {
     addMessage("replify", help_text(), "item-primary");
   } else {
-    let result = process_str(msg);
+    let result = luhn(cc);
     addMessage("replify", result, "item-primary");
   }
 }
