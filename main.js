@@ -55,13 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       let msg = input.value;
       sendMessage(msg);
-      history.push(msg)
+      history.push(msg);
       input.focus();
     });
     window.addEventListener("keyup", function (e) {
       if (e.key == "Enter") {
         let msg = input.value;
-        sendMessage(msg)
+        sendMessage(msg);
         history.push(msg);
       }
     });

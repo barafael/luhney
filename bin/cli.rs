@@ -1,5 +1,7 @@
 use clap::Parser;
-use std::path::PathBuf;
+use std::fs::File;
+use std::io::{self, BufRead, BufReader, Lines};
+use std::path::{Path, PathBuf};
 
 #[derive(Debug, Parser)]
 #[command(author, version)]
@@ -8,7 +10,21 @@ struct Args {
     input: PathBuf,
 }
 
-fn main() {
+fn main() -> anyhow::Result<()> {
     let args = Args::parse();
-    dbg!(args);
+    let lines = read_lines(args.input)?;
+    for line in lines {
+        let line = line?;
+        if luhney::luhn(&line) {
+            println!("\"{line}\": valid");
+        } else {
+            println!("\"{line}\": invalid");
+        }
+    }
+    Ok(())
+}
+
+fn read_lines(filename: impl AsRef<Path>) -> io::Result<Lines<BufReader<File>>> {
+    let file = File::open(filename)?;
+    Ok(BufReader::new(file).lines())
 }
