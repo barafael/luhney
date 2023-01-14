@@ -12,9 +12,8 @@ struct Args {
 
 fn main() -> anyhow::Result<()> {
     let args = Args::parse();
-    let lines = read_lines(args.input)?;
-    for line in lines {
-        let line = line?;
+    let mut lines = read_lines(args.input)?;
+    while let Some(Ok(line)) = lines.next() {
         if luhney::luhn(&line) {
             println!("\"{line}\": valid");
         } else {

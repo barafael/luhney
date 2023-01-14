@@ -8,6 +8,7 @@ pub fn help_text() -> String {
         .to_string()
 }
 
+// TODO use thiserror to define error types of this function (tooshort, invalid digits, etc.)
 #[wasm_bindgen]
 pub fn luhn(cc_number: &str) -> bool {
     let cc_number: String = cc_number.chars().filter(|c| !c.is_whitespace()).collect();
@@ -15,7 +16,7 @@ pub fn luhn(cc_number: &str) -> bool {
         return false;
     }
     let mut acc = 0;
-    let mut chunks = cc_number.chars().rev().array_chunks::<2>(); // TODO try using `chunks.by_ref()`
+    let mut chunks = cc_number.chars().rev().array_chunks::<2>();
 
     for [a, b] in chunks.by_ref() {
         let (Some(a), Some(b)) = (a.to_digit(10), b.to_digit(10)) else {
