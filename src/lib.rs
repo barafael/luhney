@@ -1,14 +1,15 @@
 #![feature(iter_array_chunks)]
 
+#[cfg(feature = "wasm-deps")]
 use wasm_bindgen::prelude::wasm_bindgen;
 
-#[wasm_bindgen]
+#[cfg_attr(feature = "wasm-deps", wasm_bindgen)]
 pub fn help_text() -> String {
     "This program validates credit card numbers.".to_string()
 }
 
 // TODO use thiserror to define error types of this function (tooshort, invalid digits, etc.)
-#[wasm_bindgen]
+#[cfg_attr(feature = "wasm-deps", wasm_bindgen)]
 pub fn luhn(cc_number: &str) -> bool {
     let cc_number: String = cc_number.chars().filter(|c| !c.is_whitespace()).collect();
     if cc_number.len() < 2 {

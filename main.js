@@ -12,7 +12,7 @@ function sendMessage(msg) {
     addMessage("luhney", help_text(), "item-primary");
   } else {
     let result = luhn(msg);
-    addMessage("luhney", result, "item-primary");
+    addMessage("luhney", result ? "valid" : "invalid", "item-primary");
   }
 }
 
