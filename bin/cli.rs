@@ -1,10 +1,11 @@
 use clap::Parser;
+use luhney::help_text;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, Lines};
 use std::path::{Path, PathBuf};
 
 #[derive(Debug, Parser)]
-#[command(author, version)]
+#[command(author, version, about = help_text())]
 struct Args {
     #[arg(short, long, value_parser)]
     input: PathBuf,

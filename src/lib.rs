@@ -4,8 +4,7 @@ use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
 pub fn help_text() -> String {
-    "Here's some help text to get started. This program will just validate credit card numbers"
-        .to_string()
+    "This program validates credit card numbers.".to_string()
 }
 
 // TODO use thiserror to define error types of this function (tooshort, invalid digits, etc.)
